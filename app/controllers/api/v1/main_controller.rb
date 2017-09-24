@@ -4,7 +4,7 @@ class Api::V1::MainController < ApplicationController
   private
   def require_current_user
     unless @current_user = User.last
-      head :unauthorized
+      render json: { error: 'You need register at least a user to continue'}, status: 401
     end
   end
 end

@@ -161,5 +161,5 @@
 * **Sample Call:**
 
   ```ruby
- curl -X GET 'https://codelinknetwork.herokuapp.com/api/v1/users/1/load_posts'
+    curl -X GET https://codelinknetwork.herokuapp.com/api/v1/users/1/load_posts
   ```

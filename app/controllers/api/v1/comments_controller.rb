@@ -3,7 +3,7 @@ class Api::V1::CommentsController < Api::V1::MainController
 
   def index
     comments = @post.comments.to_a
-    render json: comments, each_serializer: Api::V1::CommentSerializer
+    render json: comments, each_serializer: Api::V1::CommentSerializer, root: nil
   end
 
   def create

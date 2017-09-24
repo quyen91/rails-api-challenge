@@ -2,7 +2,7 @@ class Api::V1::PostsController < Api::V1::MainController
 
   # GET v1/posts
   def index
-    @posts = Post.all.includes(:comments).to_a
+    @posts = Post.order(updated_at: :desc).includes(:newest_comments).to_a
     render json: @posts, each_serializer: Api::V1::PostSerializer, root: nil
   end
 
@@ -10,9 +10,9 @@ class Api::V1::PostsController < Api::V1::MainController
   def create
     @post = User.last.posts.create(post_params)
     if @post.save
-      render json: { status: :success }, status: :ok
+      render json: { post_id: @post.id }, status: :ok
     else
-      render json: { status: :failed}, status: :unprocessable_entity
+      render json: { error: @post.errors}, status: :unprocessable_entity
     end
   end
 
