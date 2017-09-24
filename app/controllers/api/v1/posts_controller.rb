@@ -18,8 +18,11 @@ class Api::V1::PostsController < Api::V1::MainController
 
   # GET v1/posts/:id
   def show
-    @post = Post.find_by(id: params[:id])
-    render json: @post, serializeer: Api::V1::PostsController
+    if @post = Post.find_by(id: params[:id])
+      render json: @post, serializeer: Api::V1::PostsController, root: nil
+    else
+      render json: { errors: 'Record not found'}, status: 404
+    end
   end
 
   private

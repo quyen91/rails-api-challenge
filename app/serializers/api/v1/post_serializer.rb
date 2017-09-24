@@ -1,5 +1,5 @@
 class Api::V1::PostSerializer < ActiveModel::Serializer
-  attributes :id, :content
+  attributes :id, :title, :content
 
   has_one :user, serializer: Api::V1::UserSerializer
   has_many :newest_comments, serializer: Api::V1::CommentSerializer
