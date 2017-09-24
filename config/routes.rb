@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  api_subdomain = 'api'
+  if Rails.env.production?
+    api_subdomain = ''
+  else
+    api_subdomain = 'api'
+  end
   constraints subdomain: api_subdomain do
 
     namespace :api, path: nil do
@@ -9,7 +13,12 @@ Rails.application.routes.draw do
           collection do
             post :register
           end
+
+          member do
+            get :load_posts
+          end
         end
+
         resources :posts, only: [:index, :create, :show] do
           member do
             resources :comments, only: [:index, :create]
